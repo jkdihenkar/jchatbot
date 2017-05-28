@@ -1,14 +1,28 @@
 import cmd
 import sys
+from es import es
+from configurations import Configurations
 
 
 class jchatbot(cmd.Cmd):
     """
     JDs Chat BOT
     """
-    intro = "Welcome to JD's chatbot ... version 0.2 [cmdLine version]..."
 
-    prompt = "jchatbot > "
+    version = Configurations.app_version
+
+    if Configurations.elasticsearch_checkonstartup:
+        intro = "Welcome to JD's chatbot ... version 0.2 [cmdLine version]... \n\n" \
+                "Connected to backend v1 => ES ( {} ) and Lucene ( {} )".format(
+            es().test_connection()['version']['number'],
+            es().test_connection()['version']['lucene_version']
+        )
+    else:
+        intro = "Welcome to JD's chatbot ... version 0.2 [cmdLine version]... \n"
+
+    intro += Configurations.app_features
+
+    prompt = "({}) jchatbot > ".format(version)
 
     def do_hello(self, arg):
         'Greet the chatbot'
