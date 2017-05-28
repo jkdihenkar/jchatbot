@@ -40,8 +40,9 @@ class jchatbot(cmd.Cmd):
         print("Dont you know how to talk to jchatbot? :/")
 
     def postloop(self):
-        self.say_bye()
+        self.do_bye("Bye")
 
 
 if __name__ == "__main__":
+    sys.excepthook = Configurations.cleanexitonanyexcept
     jchatbot().cmdloop()

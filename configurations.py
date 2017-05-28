@@ -30,3 +30,7 @@ class Configurations(object):
     elasticsearch_verify_ssl = False
 
     elasticsearch_checkonstartup = False
+
+    @staticmethod
+    def cleanexitonanyexcept(*args):
+        print("\n\nExiting on request... ( or something nasty happened - report to jkdihenkar@gmail.com )")
