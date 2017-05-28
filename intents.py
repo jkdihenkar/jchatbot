@@ -10,6 +10,7 @@ This are the actions supposed to be taken by the chatbot based on
     Here intents keywords are the must keywords present in the Phrase.
 """
 
+from hashlib import sha256
 
 class Intent(object):
     """
@@ -28,6 +29,7 @@ class Intent(object):
         
         Intent actions is a mutable list.
         """
+        self.id = ''
         self.searchPhrase = searchPhrase
         self.intent_actions = intent_actions
 
@@ -49,8 +51,24 @@ class Intent(object):
         """
         pass
 
-    def commit_intent_object(self):
-        pass
+    def commit_intent_object(self, dryrun=False):
+        if dryrun:
+            print("Commiting object : {} to DB".format(
+                self
+            ))
+        else:
+            # insert to es!
+            pass
+
+    def genid(self):
+        self.id = str(sha256(self.searchPhrase.encode('utf-8')).hexdigest())
+
+    def __str__(self):
+        return "_id : {} / searchPhrase : {} / intentdetails: {}".format(
+            self.id,
+            self.searchPhrase,
+            self.intent_actions
+        )
 
     @staticmethod
     def fetch_fromDB(self, searchPhrase):

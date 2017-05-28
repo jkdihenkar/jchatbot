@@ -31,6 +31,10 @@ class Configurations(object):
 
     elasticsearch_checkonstartup = False
 
+    elasticsearch_index = "jchatbotv0"
+
+    elasticsearch_insertions_dryrun = True
+
     @staticmethod
     def cleanexitonanyexcept(*args):
         print("\n\nExiting on request... ( or something nasty happened - report to jkdihenkar@gmail.com )")
