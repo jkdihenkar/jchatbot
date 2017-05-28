@@ -10,6 +10,9 @@ class es(object):
 
     def __init__(self):
 
+        self.es_index = Configurations.elasticsearch_index
+        self.es_intent_doctype = Configurations.elasticsearch_doctype_intents
+
         self.es_connection = elasticsearch.Elasticsearch(
             hosts = Configurations.elasticsearch_enpoint,
             http_auth = Configurations.elasticsearch_auth,

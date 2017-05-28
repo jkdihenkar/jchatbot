@@ -11,6 +11,7 @@ This are the actions supposed to be taken by the chatbot based on
 """
 
 from hashlib import sha256
+from es import es
 
 class Intent(object):
     """
@@ -32,6 +33,7 @@ class Intent(object):
         self.id = ''
         self.searchPhrase = searchPhrase
         self.intent_actions = intent_actions
+        self.es = es()
 
     def exists_intent_action(self, intent_keyword):
         """
@@ -57,14 +59,24 @@ class Intent(object):
                 self
             ))
         else:
-            # insert to es!
-            pass
+            self.es.es_connection.index(
+                index=self.es.es_index,
+                id=self.id,
+                doc_type=self.es.es_intent_doctype,
+                body=self.selfdict()
+            )
 
     def genid(self):
         self.id = str(sha256(self.searchPhrase.encode('utf-8')).hexdigest())
 
+    def selfdict(self):
+        return {
+            'searchPhrase' : self.searchPhrase,
+            'intentActions': self.intent_actions
+        }
+
     def __str__(self):
-        return "_id : {} / searchPhrase : {} / intentdetails: {}".format(
+        return "Intent => _id : {} / searchPhrase : {} / intentdetails: {} ".format(
             self.id,
             self.searchPhrase,
             self.intent_actions

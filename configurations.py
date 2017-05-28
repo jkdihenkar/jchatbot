@@ -33,7 +33,9 @@ class Configurations(object):
 
     elasticsearch_index = "jchatbotv0"
 
-    elasticsearch_insertions_dryrun = True
+    elasticsearch_doctype_intents = 'intents'
+
+    elasticsearch_insertions_dryrun = False
 
     @staticmethod
     def cleanexitonanyexcept(*args):

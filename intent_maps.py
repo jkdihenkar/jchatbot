@@ -2,7 +2,10 @@
 intent_map_data = [
     {
         "echo ping pong" : [
-            {"": "echo"}
+            {
+                "intentKeyword": "_b",
+                "mapperFunction": "echo"
+            }
         ]
     },
 ]
